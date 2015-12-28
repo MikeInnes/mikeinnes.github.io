@@ -1,0 +1,27 @@
+---
+layout: common
+---
+
+<div class="padded bordered">
+
+  <h1>{{page.title}}</h1>
+
+  <div class="content">
+
+    {{ content }}
+
+  </div>
+
+</div>
+
+<div class="footer">
+  <div class="prev">
+    <a href="{{page.previous.url}}">{{page.previous.title}}</a>
+  </div>
+  <div class="home">
+    <a href="{{site.url}}/">⌂</a>
+  </div>
+    <div class="next">
+      <a href="{{page.next.url}}">{{page.next.title}}</a>
+    </div>
+</div>
