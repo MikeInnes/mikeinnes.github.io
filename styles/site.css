@@ -65,11 +65,11 @@ a:hover {
   border: solid 1px #ddd;
   padding: 0 10px 0 10px;
   border-radius: 3px;
+  line-height: 1em;
 }
 .highlight code {
   font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
   font-size: 12px;
-  line-height: 1em;
 }
 pre {
   margin: 0;
