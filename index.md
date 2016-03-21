@@ -15,7 +15,7 @@ title: home
 
 ## Some things I've worked on
 
-* Juno, an IDE for the Julia programming language
+* [Juno](http://junolab.org), an IDE for the Julia programming language
 
 ## Some things you can click on
 
