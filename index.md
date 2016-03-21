@@ -16,7 +16,7 @@ title: home
 ## Some things I've worked on
 
 * [Juno](http://junolab.org), an IDE for the Julia programming language
-* Various Julia packages: [Lazy](https://github.com/MikeInnes/Lazy.jl), [MacroTools](https://github.com/MikeInnes/MacroTools.jl), [Blink](https://github.com/MikeInnes/Blink.jl), [Mathematica](https://github.com/MikeInnes/Mathematica.jl), [Mux](https://github.com/JuliaWeb/Mux.jl) etc.
+* Various Julia packages: [Lazy](https://github.com/MikeInnes/Lazy.jl), [MacroTools](https://github.com/MikeInnes/MacroTools.jl), [Blink](https://github.com/JunoLab/Blink.jl), [Mathematica](https://github.com/MikeInnes/Mathematica.jl), [Mux](https://github.com/JuliaWeb/Mux.jl) etc.
 
 ## Some things you can click on
 
