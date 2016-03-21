@@ -19,7 +19,7 @@ title: home
 
 ## Some things you can click on
 
-[GitHub](https://github.com/one-more-minute), [Twitter](https://twitter.com/one_more_minute), [Here](http://one-more-minute.github.io)
+[GitHub](https://github.com/MikeInnes), [Twitter](https://twitter.com/one_more_minute), [Here]({{site.url}})
 
 ## Some things never change
 
