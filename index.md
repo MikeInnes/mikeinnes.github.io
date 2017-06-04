@@ -22,7 +22,7 @@ title: home
 
 [GitHub](https://github.com/MikeInnes), [Twitter](https://twitter.com/one_more_minute), [Here]({{site.url}})
 
-## Some things never change
+## Some things you can read
 
 <ul>
 {% for post in site.posts %}
