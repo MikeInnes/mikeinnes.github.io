@@ -57,6 +57,7 @@ end
 The `@generated` annotation allows us to hook into Julia’s code specialisation; when the function receives matrices as input, our custom code generation will create and run a twice-nested loop. This will behave the same as our `add!` function above, but for arrays of any dimension. If you remove `@generated` you can see the internals.
 
 ```julia
+julia> using MacroTools
 julia> add!(zs, xs, ys) |> macroexpand |> MacroTools.prettify
 quote
     for i_2 = indices(out, 2)
