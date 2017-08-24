@@ -111,7 +111,7 @@ quote
 end
 ```
 
-If we put this together we can make an N-dimensional, N-argument version of `kernel_vadd` on the GPU (where `@cuindex` hides the messy N-D indexing):
+If we put this together we can make an N-dimensional, N-argument version of `kernel_vadd` on the GPU (where `@cuindex` hides the messy ND indexing):
 
 ```julia
 @generated function kernel_vadd(out, xs::NTuple{N}) where N
@@ -141,7 +141,7 @@ end
 @cuda (1, length(xs)) kernel_zip2(+, zs, xs, ys)
 ```
 
-It behaves and performs *exactly* like `kernel_vadd`; but we can use any binary function without extra code.
+It behaves and performs *exactly* like `kernel_vadd`; but we can use any binary function without extra code. For example, we can now subtract two arrays:
 
 ```julia
 @cuda (1, length(xs)) kernel_zip2(-, zs, xs, ys)
