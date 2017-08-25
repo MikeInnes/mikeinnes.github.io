@@ -147,7 +147,7 @@ It behaves and performs *exactly* like `kernel_vadd`; but we can use any binary 
 @cuda (1, length(xs)) kernel_zip2(-, zs, xs, ys)
 ```
 
-Combining this with the above, we have all the tools we need to write a generic `broadcast` kernel (if you’re unfamiliar with array broadcasting, think of it as a slightly more general `map`). This is implemented in the `CuArrays` package loaded earlier, so you can immediately write:
+Combining this with the above, we have all the tools we need to write a generic `broadcast` kernel (if you’re unfamiliar with array broadcasting, think of it as a slightly more general `map`). This is implemented in the [CuArrays](https://github.com/FluxML/CuArrays.jl) package loaded earlier, so you can immediately write:
 
 ```julia
 julia> σ(x) = 1 / (1 + exp(-x))
