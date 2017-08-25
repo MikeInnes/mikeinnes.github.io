@@ -21,7 +21,7 @@ end
 @assert zs == xs + ys
 ```
 
-Is this better than writing CUDA C? At first, it’s easy mistake this for simple syntactic convenience, but I’m convinced that it brings something fundamentally new to the table. Julia’s powerful array abstractions turn out to be a great fit for GPU programming, and it should be of interest to GPGPU hackers regardless of whether they use the language already.
+Is this better than writing CUDA C? At first, it’s easy to mistake this for simple syntactic convenience, but I’m convinced that it brings something fundamentally new to the table. Julia’s powerful array abstractions turn out to be a great fit for GPU programming, and it should be of interest to GPGPU hackers regardless of whether they use the language already.
 
 ## A New Dimension
 
