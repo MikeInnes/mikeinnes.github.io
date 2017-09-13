@@ -8,8 +8,8 @@ body {
   padding-bottom: 25px;
 }
 .bordered {
-  border-left:  5px solid #eee;
-  border-right: 5px solid #eee;
+  border-left:  5px solid rgb(245, 245, 245);
+  border-right: 5px solid rgb(245, 245, 245);
 }
 .padded {
   padding-left: 25px;
@@ -24,6 +24,7 @@ h1 {
   font-family: Raleway;
 }
 h2 {
+  margin-top: 1em;
   text-align: right;
   border-bottom: solid 1px #eee;
 }
@@ -69,14 +70,15 @@ a:hover {
 
 .highlight {
   overflow: scroll;
-  border: solid 1px #ddd;
-  padding: 0 10px 0 10px;
-  border-radius: 3px;
+  background: rgb(245, 245, 245);
+  padding: 25px;
+  margin-left: -25px;
+  margin-right: -25px;
   line-height: 1em;
 }
 .highlight code {
   font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
-  font-size: 12px;
+  font-size: 14px;
 }
 pre {
   margin: 0;
