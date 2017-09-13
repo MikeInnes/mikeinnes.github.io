@@ -84,13 +84,11 @@ pre {
   margin: 0;
 }
 code.highlighter-rouge {
-  border: solid 1px #ddd;
   border-radius: 2px;
-  background: #fafafa;
-  padding-left:  3px;
-  padding-right: 3px;
+  background: rgb(245, 245, 245);
+  padding: 5px;
   font-size: 0.8em;
-  color: rgba(0, 0, 0, 0.8);
+  color: rgba(50, 50, 50);
   position: relative;
   bottom: 1px;
 }
