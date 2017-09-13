@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Generic GPU Kernels in Julia
+title: Generic GPU Kernels
 ---
 
 Julia has a library called [CUDAnative](https://github.com/JuliaGPU/CUDAnative.jl), which hacks the compiler to run your code on GPUs.
