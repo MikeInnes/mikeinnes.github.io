@@ -15,7 +15,7 @@ Lacking variables, conditionals, objects, functions, or anything that seems like
 
 <script type="text/javascript" src="https://asciinema.org/a/RZsEQFxk8wJtsPcjNi90AiOR0.js" id="asciicast-RZsEQFxk8wJtsPcjNi90AiOR0" async></script>
 
-To do this, I implemented a simple Forth-like language, [brainforth](https://github.com/MikeInnes/BrainForth) that compiles to brainfuck. There [are](http://esolangs.org/wiki/BFBASIC) a [few](http://esolangs.org/wiki/C2BF) compile-to-brainfuck languages, but to the best of my knowledge this is the only functional one, and the only one that supports dynamically-sized arrays and higher-order functions. Let’s see how it works!
+To do this, I implemented a simple Forth-like language, [brainforth](https://github.com/MikeInnes/BrainForth), that compiles to brainfuck. There [are](http://esolangs.org/wiki/BFBASIC) a [few](http://esolangs.org/wiki/C2BF) compile-to-brainfuck languages, but to the best of my knowledge this is the only functional one, and the only one that supports dynamically-sized arrays and higher-order functions. Let’s see how it works!
 
 ## The Forth Element
 
@@ -129,7 +129,7 @@ julia> @run [3, 4, +]
 [45] 7 1*
 ```
 
-[See it running.](http://fatiherikli.github.io/brainfuck-visualizer/#PisrKz4rPisrKys+Ky08Wy08PCs+Pl08).
+[See it running.](http://fatiherikli.github.io/brainfuck-visualizer/#PisrKz4rPisrKys+Ky08Wy08PCs+Pl08)
 
 We can already write some reasonably complex programs that compile to efficient code. Here’s the polynomial `x^2 + 2x + 3`:
 
@@ -205,7 +205,7 @@ julia> @run [3, 5, 7, rpush, debug!, 1, +, rpop]
 [632] 3 1 6 1 7 1*
 ```
 
-[See it running.](http://fatiherikli.github.io/brainfuck-visualizer/#Pj4+Pj4rKys+Kz4rKysrKz4rPisrKysrKys+Ky08Wy08Wzw8XTw8Wzw8XT4+PCs+Wz4+XT4+Wz4+XTw8Pl08Wzw8XTw8Wzw8XT4+PDwrWz4+XT4+Wz4+XTw8Pis+Ky08Wy08PCs+Pl08Wzw8XTw8Wzw8XT4+LT5bLT5bPj5dPj5bPj5dPDw+KzxbPDxdPDxbPDxdPj48XT5bPj5dPj5bPj5dPDw+Pis=).
+[See it running.](http://fatiherikli.github.io/brainfuck-visualizer/#Pj4+Pj4rKys+Kz4rKysrKz4rPisrKysrKys+Ky08Wy08Wzw8XTw8Wzw8XT4+PCs+Wz4+XT4+Wz4+XTw8Pl08Wzw8XTw8Wzw8XT4+PDwrWz4+XT4+Wz4+XTw8Pis+Ky08Wy08PCs+Pl08Wzw8XTw8Wzw8XT4+LT5bLT5bPj5dPj5bPj5dPDw+KzxbPDxdPDxbPDxdPj48XT5bPj5dPj5bPj5dPDw+Pis=)
 
 ## Famous Quotations
 
@@ -320,7 +320,7 @@ julia> @run [5, factorial]
 [69372] 120 1*
 ```
 
-Here’s the doubly-recursive fibonacci function. Brainforth may yet have a future in the number theory niche; there can only be so many interesting integers, so I doubt you’d need any larger than 255.
+Here’s the doubly-recursive fibonacci function. Brainforth may yet have a future in the number theory niche; there can only be so many interesting integers, so I doubt you’d need any larger than 255 anyway.
 
 ```julia
 julia> @bf fib = [dup, [1, ==], [0, ==], bi, or,
@@ -404,7 +404,7 @@ julia> @run [3, iota, dupv, [reverse, pop, drop], dipv, cat]
 
 If you think about what’s happening in the stacks to achieve a list reversal, you should be either impressed or horrified[^weak].
 
-[^weak] This is what real weak typing looks like. We rely entirely on the programmer to separate arrays from bytecodes from data by convention, and if you get it wrong you just get a messed up state. If the compiler knew a bit more about the language, it could enforce more correctness with a static type system; but that would ruin the beauty of bootstrapping the stack abstraction with the language itself. Alternatively, we could have all data be tagged for a dynamic type system, though it would be extremely inefficient.
+[^weak]: This is what real weak typing looks like. We rely entirely on the programmer to separate arrays from bytecodes from data by convention, and if you get it wrong you just get a messed up state. If the compiler knew a bit more about the language, it could enforce more correctness with a static type system; but that would ruin the beauty of bootstrapping the stack abstraction with the language itself. Alternatively, we could have all data be tagged for a dynamic type system, though it would be extremely inefficient.
 
 Arrays give us everything we need to implement usable I/O, e.g. `readln` that reads with `,` until a newline, or `println` that prints each character in a list with `.`.
 
@@ -452,7 +452,7 @@ There’s one bonus feature: a primitive Rust-style [`panic` function](https://g
 
 That escalated quickly. We bootstrapped a high-level system, unrecognisable from brainfuck, in only a couple hundred lines of code. It was also pretty fun to build; this kind of task is a fractal of interesting little logic puzzles. Of course, it’s not without limitations. For example, it doesn’t support closures, so you can’t use `map` if you want to (say) add a user input integer to every item in a list.
 
-Is there any point to this at all? Aside from wanting to have a side project that couldn’t *possibly* be successful and therefore turn into real work, I think there’s real value in thinking about strange turing machines. The world is full of computers that aren’t CPUs – biological cells, quantum circuits, [fractions](https://en.wikipedia.org/wiki/FRACTRAN) – and programming them is currently much closer to brainfuck than to Python. Finding programming models that are intuitive while exploiting the hardware (or wetware) well is an important unsolved problem.
+Is there any point to this at all? Aside from wanting to have a side project that couldn’t *possibly* be successful and therefore turn into real work, I think there’s real value in thinking about strange Turing machines. The world is full of computers that aren’t CPUs – biological cells, quantum circuits, [fractions](https://en.wikipedia.org/wiki/FRACTRAN) – and programming them is currently much closer to brainfuck than to Python. Finding programming models that are intuitive while exploiting the hardware (or wetware) well is an important unsolved problem.
 
 Of course, brainforth contributes nothing of value to any of these efforts.
 
