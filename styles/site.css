@@ -43,6 +43,10 @@ a:hover {
   text-align: justify;
 }
 
+.asciicast {
+  text-align: center;
+}
+
 .footer > div {
   opacity: 0.5;
   font-size: 15px;
