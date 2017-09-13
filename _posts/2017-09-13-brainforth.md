@@ -346,7 +346,7 @@ julia> @run [3, factorial];
 [42362] 6 1*
 ```
 
-The stack expands to `3`, `2`, `1`, and those values are then multiplied together in turn. The instruction `10` effectively track the number of multiplies that we need to carry out, so the `rstack` also expands on the left. You can see that our forth would be pretty crippled without the two stacks. I’m sure that you could prove this formally; pushdown automata are also only Turing complete if they have more than one stack available, and this is a very similar model.
+The stack expands to `3`, `2`, `1`, and those values are then multiplied together in turn. The instruction `10` effectively tracks the number of multiplies that we need to carry out, so the `rstack` also expands on the left. You can see that our forth would be pretty crippled without the two stacks. I’m sure that you could prove this formally; pushdown automata are also only Turing complete if they have more than one stack available, and this is a very similar model.
 
 ## Array With Words
 
@@ -461,5 +461,9 @@ Is there any point to this at all? Aside from wanting to have a side project tha
 Of course, brainforth contributes nothing of value to any of these efforts.
 
 Join us next week, when we’ll be compiling Erlang to [Piet](https://esolangs.org/wiki/Piet), for fault-tolerant yet picturesque distributed systems!
+
+<div class="fill">
+  <img src="{{site.url}}/assets/pollock.jpg" />
+</div>
 
 ## Footnotes
