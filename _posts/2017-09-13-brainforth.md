@@ -313,7 +313,7 @@ julia> @run [10, 10, ==, [25], [50], iff]
 
 We can also implement recursive functions at this point[^rec]. Here’s a recursive factorial function. If the input `n` is one, we’re done; if not, we take the factorial of `n+1` and multiply the two together.
 
-[rec]: An interesting property is that tail recursive functions will use constant stack space, automatically. This isn't something the compiler optimises, it just falls right out of the programming model.
+[^rec]: An interesting property is that tail recursive functions will use constant stack space, automatically. This isn't something the compiler optimises, it just falls right out of the programming model.
 
 ```julia
 julia> @bf factorial = [dup, 1, ==, [dup, 1, -, factorial, *], unless]
