@@ -6,7 +6,8 @@ title: Taming the Tarpit
 Have you ever seen a programming language like this?
 
 ```
-++++++++[>++++[>++>+++>+++>+<<<<-]>+>+>->>+[<]<-]>>.>---.+++++++..+++.>>.<-.<.+++.------.--------.>>+.>++.
+++++++++[>++++[>++>+++>+++>+<<<<-]>+>+>->>+[<]<-]>>.>
+---.+++++++..+++.>>.<-.<.+++.------.--------.>>+.>++.
 ```
 
 What you’re looking at is the “hello, world!” program of a language called [brainfuck](https://en.wikipedia.org/wiki/Brainfuck). Brainfuck is a sort of postmodern approach to language design, the kind of thing that Jackson Pollock’s evil digital twin would have used. It has only eight instructions for moving around an array of bytes, adding and subtracting one as you go. Yet surprisingly enough, it’s just as powerful as a full programming language like Python.
