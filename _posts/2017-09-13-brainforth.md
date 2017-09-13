@@ -123,7 +123,7 @@ julia> @run [4]
 With numbers in place, we can use the [canonical implementations](http://esolangs.org/wiki/Brainfuck_algorithms) of basic algorithms like addition and copying almost directly; we just need to make sure that the inputs and outputs are correctly positioned as part of the stack.
 
 ```julia
-julia> @bf + = Native(“-<[-<<+>>]<”)
+julia> @bf + = Native("-<[-<<+>>]<")
 julia> compile(@bf [3, 4, +])
 ">+++>+>++++>+-<[-<<+>>]<"
 julia> @run [3, 4, +]
