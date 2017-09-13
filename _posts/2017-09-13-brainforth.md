@@ -311,17 +311,18 @@ julia> @run [10, 10, ==, [25], [50], iff]
 [9685] 25 1*
 ```
 
-We can also implement recursive functions at this point. Here’s a recursive factorial function. If the input `n` is one, we’re done; if not, we take the factorial of `n+1` and multiply the two together.
+We can also implement recursive functions at this point[^rec]. Here’s a recursive factorial function. If the input `n` is one, we’re done; if not, we take the factorial of `n+1` and multiply the two together.
+
+[rec]: An interesting property is that tail recursive functions will use constant stack space, automatically. This isn't something the compiler optimises, it just falls right out of the programming model.
 
 ```julia
 julia> @bf factorial = [dup, 1, ==, [dup, 1, -, factorial, *], unless]
-
 
 julia> @run [5, factorial]
 [69372] 120 1*
 ```
 
-Here’s the doubly-recursive fibonacci function. Brainforth may yet have a future in the number theory niche; there can only be so many interesting integers, so I doubt you’d need any larger than 255 anyway.
+Here’s the doubly-recursive fibonacci function. Brainforth may yet have a future in number theory; there can only be so many interesting integers, so I doubt you’d need any larger than 255 anyway.
 
 ```julia
 julia> @bf fib = [dup, [1, ==], [0, ==], bi, or,
@@ -346,7 +347,9 @@ julia> @run [3, factorial];
 ```
 
 The stack expands to `3`, `2`, `1`, and those values are then multiplied together in turn. The instruction `10` effectively track the number of multiplies that we need to carry out, so the `rstack` also expands on the left. You can see that our forth would be pretty crippled without the two stacks. I’m sure that you could prove this formally; pushdown automata are also only Turing complete if they have more than one stack available, and this is a very similar model.
+
 ## Array With Words
+
 Being able to write recursive functions opens up an interesting possibility. Could we represent lists on our stack, and use recursive functions to manipulate them?
 
 Since there’s no such thing as a pointer in brainforth-land, we’ll have to store all list elements directly on the stack. We’ll also need to know how long it is, so we’ll store the length on top of the elements. There’s an `iota` function which creates a range array for you.
