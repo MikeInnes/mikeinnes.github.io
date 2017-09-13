@@ -1,3 +1,8 @@
+---
+layout: post
+title: Taming the Tarpit
+---
+
 Have you ever seen a programming language like this?
 
 ```
