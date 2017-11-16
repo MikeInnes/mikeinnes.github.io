@@ -1,7 +1,9 @@
 ---
 layout: post
-title: Can the Universe Simulate Itself?
+title: Recursive Self-Simulation
 ---
+
+Can the Universe Simulate Itself?
 
 I’m not merely asking if we can simulate the laws of Physics, nor whether we can simulate them with such fidelity that they give rise to life. Those are pansy questions.
 
