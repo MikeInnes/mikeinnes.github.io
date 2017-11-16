@@ -16,6 +16,11 @@
     <link href='/styles/syntax.css' rel='stylesheet' type='text/css'>
     <link href='//fonts.googleapis.com/css?family=Raleway:900' rel='stylesheet' type='text/css'>
 
+    <!-- KaTeX -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.9.0-alpha1/katex.min.css" integrity="sha384-8QOKbPtTFvh/lMY0qPVbXj9hDh+v8US0pD//FcoYFst2lCIf0BmT58+Heqj0IGyx" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.9.0-alpha1/katex.min.js" integrity="sha384-GR8SEkOO1rBN/jnOcQDFcFmwXAevSLx7/Io9Ps1rkxWp983ZIuUGfxivlF/5f5eJ" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.9.0-alpha1/contrib/auto-render.min.js" integrity="sha384-cXpztMJlr2xFXyDSIfRWYSMVCXZ9HeGXvzyKTYrn03rsMAlOtIQVzjty5ULbaP8L" crossorigin="anonymous"></script>
+
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -24,11 +29,21 @@
 
       ga('create', 'UA-36890222-8', 'auto');
       ga('send', 'pageview');
-
     </script>
   </head>
   <body>
     {{ content }}
     <div class="overscroll"></div>
+
+    <!-- KaTeX auto-render -->
+    <script>
+      renderMathInElement(document.body, {
+        delimiters: [
+          {left: "$[[", right: "]]", display: true},
+          {left: "\\[", right: "\\]", display: true},
+          {left: "[[", right: "]]", display: false}
+        ]
+      });
+    </script>
   </body>
 </html>
