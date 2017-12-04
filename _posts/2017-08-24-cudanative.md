@@ -235,3 +235,5 @@ ys = CuArray(randn(1, 100, 5, 5, 5))
 The full broadcasting machinery in CuArrays is [*60 lines long*](https://github.com/FluxML/CuArrays.jl/blob/9a2eafa19966cf5613308bbcda1db0e1c3e95358/src/broadcast.jl#L4-L64). While not completely trivial, this is an incredible amount of functionality to get from this much code. CuArrays itself is under 400 source lines, while providing almost all general array operations (indexing, concatenation, permutedims etc) in a similarly generic way.
 
 Julia’s ability to spit out specialised code is unprecedented, and I’m excited to see where this leads in future. For example, it would be relatively easy to build a Theano-like framework in Julia, and create specialised kernels for larger computations. Either way, I think we’ll be hearing more about Julia and GPUs as time goes on.
+
+*Full credit for the work behind this to [Tim Besard](https://github.com/maleadt) and [Jarrett Revels](https://github.com/jrevels), respective authors of the amazing [CUDAnative](https://github.com/JuliaGPU/CUDAnative.jl) and [ForwardDiff](https://github.com/JuliaDiff/ForwardDiff.jl).*
