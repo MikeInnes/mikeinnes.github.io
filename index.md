@@ -26,6 +26,9 @@ title: home
 ## Some things you can read
 
 <ul>
+<li><a href="https://julialang.org/blog/2017/12/ml&pl">
+  On Machine Learning and Programming Languages
+</a></li>
 {% for post in site.posts %}
 <li>
   <a href="{{post.url}}">{{post.title}}</a>
