@@ -79,8 +79,4 @@ What we can say is that (1) each sub-universe would run in eerily slowed-down ti
 
 All of this is to say – Christopher Nolan was right on the money.
 
-<div class="fill">
-  <img src="{{site.url}}/assets/treachery.jpg" />
-</div>
-
 ## Footnotes
