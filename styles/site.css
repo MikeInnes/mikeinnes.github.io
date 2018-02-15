@@ -76,8 +76,8 @@ a:hover {
   width: 1px;
 }
 
-.highlight {
-  overflow: scroll;
+div.highlight {
+  overflow: auto;
   background: rgb(245, 245, 245);
   padding: 25px;
   margin-left: -25px;
