@@ -15,7 +15,9 @@ title: home
 
 ## Some things I've worked on
 
-* [The Julia Language](https://julialang.org/)
+* [Julia](https://julialang.org/), a programming language
+* [Flux](https://en.wikipedia.org/wiki/Flux_(machine-learning_framework)), a machine learning system
+* [Zygote](https://github.com/FluxML/Zygote.jl), an algorithmic differentiation engine
 * [Juno](http://junolab.org), an IDE for Julia
 * [Various miscellaneous packages](https://github.com/MikeInnes/)
 
@@ -26,9 +28,6 @@ title: home
 ## Some things you can read
 
 <ul>
-<li><a href="https://julialang.org/blog/2017/12/ml&pl">
-  On Machine Learning and Programming Languages
-</a></li>
 {% for post in site.posts %}
 <li>
   <a href="{{post.url}}">{{post.title}}</a>
