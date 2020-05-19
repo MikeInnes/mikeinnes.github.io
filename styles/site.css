@@ -56,6 +56,10 @@ a:hover {
   text-align: center;
 }
 
+.footnotes {
+  font-size: 90%;
+}
+
 .footer > div {
   opacity: 0.5;
   font-size: 15px;
