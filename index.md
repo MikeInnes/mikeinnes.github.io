@@ -23,7 +23,7 @@ title: home
 
 ## Some things you can click on
 
-[GitHub](https://github.com/MikeInnes), [Twitter](https://twitter.com/one_more_minute), [Here]({{site.url}})
+[GitHub](https://github.com/MikeInnes), [Twitter](https://twitter.com/MikeJInnes), [Here]({{site.url}})
 
 ## Some things you can read
 
