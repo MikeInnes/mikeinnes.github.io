@@ -18,7 +18,7 @@ title: home
 * [Julia](https://julialang.org/), a programming language
 * [Flux](https://en.wikipedia.org/wiki/Flux_(machine-learning_framework)), a machine learning system
 * [Zygote](https://github.com/FluxML/Zygote.jl), an algorithmic differentiation engine
-* [Juno](http://junolab.org), an live-coding IDE
+* [Juno](http://junolab.org), a live-coding IDE
 * [Various miscellaneous packages](https://github.com/MikeInnes/)
 
 ## Some things you can click on
