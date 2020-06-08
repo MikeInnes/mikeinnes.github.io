@@ -4,3 +4,5 @@ plugins:
   - jekyll-feed
 title: Mike Innes's Blog
 author: Mike Innes
+feed:
+  excerpt_only: true
