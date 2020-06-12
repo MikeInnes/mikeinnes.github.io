@@ -46,18 +46,18 @@ The problem that transducers solve is an important one; transducers themselves a
 (defn take [n]
   (fn [rf]
     (let [nv (volatile! n)]
-        (fn
+      (fn
         ([] (rf))
         ([result] (rf result))
         ([result input]
-            (let [n @nv
+          (let [n @nv
                 nn (vswap! nv dec)
                 result (if (pos? n)
-                            (rf result input)
-                            result)]
+                          (rf result input)
+                          result)]
             (if (not (pos? nn))
-                (ensure-reduced result)
-                result)))))))
+              (ensure-reduced result)
+              result)))))))
 ```
 
 The elegance of transducers is somewhat eroded as we try to make them more general, and even then they have significant limitations. In particular:
