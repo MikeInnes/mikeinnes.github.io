@@ -1,5 +1,5 @@
 :root {
-  --padding: 50px;
+  --padding: 25px;
   --syntax-background: #3f3f3f;
   --background: rgb(235, 235, 235);
 }
@@ -59,8 +59,13 @@ a:hover {
   border-color: rgb(230, 230, 230);
 }
 
-.content {
-  text-align: justify;
+@media (min-width: 650px) {
+  .content {
+    text-align: justify;
+  }
+  :root {
+    --padding: 50px;
+  }
 }
 
 .fill {
