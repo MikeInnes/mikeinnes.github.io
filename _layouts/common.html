@@ -14,7 +14,7 @@
 
     <link href='/styles/site.css' rel='stylesheet' type='text/css'>
     <link href='/styles/syntax.css' rel='stylesheet' type='text/css'>
-    <link href='//fonts.googleapis.com/css?family=Raleway:900' rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
 
     <!-- KaTeX -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.9.0-alpha1/katex.min.css" integrity="sha384-8QOKbPtTFvh/lMY0qPVbXj9hDh+v8US0pD//FcoYFst2lCIf0BmT58+Heqj0IGyx" crossorigin="anonymous">
@@ -32,8 +32,9 @@
     </script>
   </head>
   <body>
-    {{ content }}
-    <div class="overscroll"></div>
+    <div class="padded bordered">
+      {{ content }}
+    </div>
 
     <!-- KaTeX auto-render -->
     <script>
