@@ -214,9 +214,9 @@ into empty(xs) -> (trues, falses) {
 
 The above examples, taking things from one bunch of sequences and putting them into another bunch, might begin to look familiar. That’s because the Shyamalan-esque twist to this story is that Clojure _already had this abstraction all along_, via the [core.async](https://github.com/clojure/core.async) library. The relationship of `go` blocks to our generalised list comprehensions is that
 
-1. Instead of iterating `for x in xs` we have an explicit `&lt;!` (take) operation, which is itself an effect; it suspends the code and falls back to a handler, which can `resume` with a value when one is available.
+1. Instead of iterating `for x in xs` we have an explicit `<!` (take) operation, which is itself an effect; it suspends the code and falls back to a handler, which can `resume` with a value when one is available.
 2. `yield` is replaced by the `>!` (put) effect.
-3. Both `>!` and `&lt;!` are linked to identities (channels), which means multiple inputs and outputs are supported.
+3. Both `>!` and `<!` are linked to identities (channels), which means multiple inputs and outputs are supported.
 
 So we can draw a clear path from list comprehensions to async blocks, two features which might not seem all that related at first, by generalising in some ways and specialising in others. This suggests a unification is in order; a powerful enough sequence-transformation system could subsume other ways of working with channels. Conversely, graduating core.async to general effects would be one way to build such a system.
 
