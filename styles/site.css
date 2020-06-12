@@ -41,6 +41,12 @@ h2 {
   margin-bottom: -15px;
   font-weight: 900;
 }
+h3 {
+  font-size: 100%;
+  margin-top: 1em;
+  font-weight: normal;
+  margin-bottom: -15px;
+}
 
 a {
   color: inherit;
