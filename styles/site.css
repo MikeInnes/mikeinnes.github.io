@@ -59,6 +59,17 @@ a:hover {
   border-color: rgb(230, 230, 230);
 }
 
+.desc {
+  font-size: 90%;
+  text-align: right;
+  font-style: italic;
+}
+
+blockquote {
+  font-size: 90%;
+  font-style: italic;
+}
+
 @media (min-width: 650px) {
   .content {
     text-align: justify;
