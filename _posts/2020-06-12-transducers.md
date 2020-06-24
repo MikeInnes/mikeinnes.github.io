@@ -37,6 +37,8 @@ Clojure resolves this with two insights:
 
 Processes can therefore accept step-wrapping functions (transducers) to alter their behaviour. The upshot is that you can create and compose objects representing mapping, filtering etc and use them generically on channels, sequences, vectors and so on.
 
+To solve our `map` problem, we can write data structure production and lazy-sequence production (or channel production, or ...) as a single 'transducible process'. Functions like `map` and `filter` become transducers which we can hand to these processes to modify their behaviour. Thus we can write `map` only once, yet use it with many sequence types.
+
 ## A sequence of caveats
 
 The problem that transducers solve is an important one; transducers themselves are elegant in conception and clean to work with as a user. However, if you look into how transducers are put together under the hood – or try to implement one yourself – you might find them less easy on the eyes.
