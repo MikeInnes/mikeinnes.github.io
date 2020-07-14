@@ -9,7 +9,6 @@ title: home
 
 * My name is Mike
 * I know very little about anything (but I'm working on it)
-* I'm a semi-effective code monkey, currently monkeying around for [Julia Computing](https://juliacomputing.com)
 * As a programmer, I spend most of my time writing pieces of text which solve problems
   * Although the problems are often themselves caused by other pieces of text, which were often also written by me
 
