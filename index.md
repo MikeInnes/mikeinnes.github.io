@@ -33,3 +33,5 @@ title: home
 </li>
 {% endfor %}
 </ul>
+
+[RSS feed](/feed.xml)
