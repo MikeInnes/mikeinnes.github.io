@@ -48,6 +48,13 @@ h3 {
   margin-bottom: -15px;
 }
 
+hr {
+  height: 5px;
+  background-color: var(--background);
+  border: none;
+  margin: 2em calc(var(--padding)*-1) 2em calc(var(--padding)*-1);
+}
+
 a {
   color: inherit;
   text-decoration: inherit;
@@ -68,6 +75,9 @@ a:hover {
 blockquote {
   font-size: 90%;
   font-style: italic;
+}
+blockquote em {
+  font-style: normal;
 }
 
 @media (min-width: 650px) {
