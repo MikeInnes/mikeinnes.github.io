@@ -3,8 +3,6 @@ layout: post
 title: Mixture Variational Inference
 ---
 
-## Introducing VI
-
 The main concern of statistical inference is to tell us things that we didn't know based on things we do know. The things want to learn about could be anything – phylogenetic trees, for example – but usually we'll talk about numerical summaries, like the GDP of France, the average heights of males and females, or the reproductive rate of an infectious disease. We'll label the set of numbers we don't know [[\theta \in \mathbb R^n]], and the numbers we do know [[X \in \mathbb R^m]].
 
 However, we don't usually expect a single right answer, like "[[\theta]] is [[5]]". Instead we want a range of plausible answers, like "[[\theta]] is probably [[5 \pm 3]]". To do this we use a function [[P(\theta)]] which takes a candidate for [[\theta]] and tells us how plausible it is – a probability distribution. When we see new data [[X]], we want to update what we currently think is plausible, [[P(\theta)]], to a new distribution [[Q(\theta)]]. [[Q]] becomes our new [[P]] and we can rinse and repeat.
@@ -56,8 +54,6 @@ $[[E\_{\hat Q}[f(\theta)] \approx \frac{1}{N}\sum_{\theta_i \sim \hat Q}^N f(\th
 
 This means that our objective function – what we minimise by gradient descent – will be noisy. But that's OK, because deep learning has given us excellent noisy optimisers, like `Adam`. In fact, these optimisers are so good that we can set [[N = 1]] and estimate the ELBO as we improve it.[^batch] We just have to maximise the objective
 
-[^batch]: [[N = 1]] usually needs the fewest samples to converge, too. However, it can still be useful to set [[N > 1]]. Extra samples in a batch can be cheap to compute, especially on GPUs, where they can be more-or-less free.
-
 ```julia
 function objective(Q̂)
   θ = rand(Q̂)
@@ -66,6 +62,8 @@ end
 ```
 
 where `model(θ)` represents the user-defined log likelihood function (closing over the data [[X]]).
+
+[^batch]: [[N = 1]] usually needs the fewest samples to converge, too. However, it can still be useful to set [[N > 1]]. Extra samples in a batch can be cheap to compute, especially on GPUs, where they can be more-or-less free.
 
 ## At What Cost?
 
