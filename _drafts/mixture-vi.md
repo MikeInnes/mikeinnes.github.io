@@ -3,7 +3,7 @@ layout: post
 title: Variational Inference
 ---
 
-The goal of statistical inference is to tell us things that we didn't know based on things we do know. The things want to learn about could be anything – [phylogenetic trees](https://www.beast2.org), for example – but usually we'll talk about numerical summaries, like the GDP of France, or the reproductive rate of an infectious disease. In mathematical notation we'll label the set of numbers we don't know [[\theta \in \mathbb R^n]] (as in, [[\theta]] is a list of [[n]] numbers) and the numbers we do know [[X \in \mathbb R^m]].
+The goal of statistical inference is to tell us things that we didn't know based on things we do. The things want to learn about could be anything – [phylogenetic trees](https://www.beast2.org), for example – but usually we'll talk about numerical summaries, like the GDP of France, or the reproductive rate of an infectious disease. In mathematical notation we'll label the set of numbers we don't know [[\theta \in \mathbb R^n]] (as in, [[\theta]] is a list of [[n]] unknown numbers) and the numbers we do know [[X \in \mathbb R^m]].
 
 However, we don't usually expect a single right answer, like "[[\theta]] is [[5]]". Instead we want a range of plausible answers, like "[[\theta]] is probably [[5 \pm 3]]". To do this we use a function [[P(\theta)]] which takes a candidate for [[\theta]] and tells us how plausible it is – a probability distribution. When we see new data [[X]], we want to update what we currently think is plausible [[P(\theta)]] (aka the prior) to a new distribution [[Q(\theta)]] (the posterior). [[Q]] becomes our new [[P]] and we can rinse and repeat as new information comes in.
 
@@ -11,17 +11,17 @@ Bayes' rule makes the process of getting [[Q]] from [[P]] look simple:
 
 $[[Q(\theta) = \frac{P(X,\theta)}{P(X)}]]
 
-[[P(X, \theta)]] is very easy to get, in most cases. It's the function we write down when we use a probilistic programming language (PPL) to describe how [[X]] and [[\theta]], the knowns and unknowns, are related. But [[P(X)]], the marginal likelihood of the data, turns out to be much harder. To get it from [[P(X, \theta)]] we'd have to integrate over all [[\theta]]:
+[[P(X, \theta)]] is very easy to get, in most cases. It's the function we write down when we use a probabilistic programming language (PPL) to describe how [[X]] and [[\theta]], the knowns and unknowns, are related. But [[P(X)]], the marginal likelihood of the data, turns out to be much harder. To get it from [[P(X, \theta)]] we'd have to integrate over all [[\theta]]:
 
 $[[P(X) = \int P(X,\theta)\,d\theta]]
 
 We often have thousands of [[\theta]] parameters, which makes this integral impossible. That means we need a workaround. One option is to use MCMC, which lets us sample from [[Q(\theta)]] without knowing [[P(X)]]. Another is variational inference, or VI, in which we try to turn this tricky integral into an optimisation problem instead.
 
-## Cabbage and KL
+## Neat Little Rows
 
-To frame this problem as optimisation, we can make up a candidate distribution [[\hat Q(\theta)]] which has parameters we can tune, and then try to minimise the difference [[D(\hat Q, Q)]] between the candidate [[\hat Q]] and the true distribution [[Q]]. (For example, we might assume all the [[\theta]] are independent Gaussians, and we can tweak each mean and variance until it looks good.)
+To frame inference as optimisation, we can make up a candidate distribution [[\hat Q(\theta)]] which has parameters we can tune, and then try to minimise the difference [[D(\hat Q, Q)]] between the candidate [[\hat Q]] and the true posterior [[Q]]. (For example, we might assume all the [[\theta_i]] are independent Gaussians, and we can tweak each mean and variance to improve the fit.)
 
-There are a few ways to measure distance between distributions, but one useful one is the KL divergence, defined as
+There are a few ways to measure distance between distributions, but one particularly useful one is the KL divergence, defined as
 
 <div>
     $[[\begin{aligned}
@@ -50,13 +50,13 @@ The trick here is that we can separate out [[\log(P(X))]], the part that's hard 
     \end{aligned}]]
 </div>
 
-which is easy to calculate. Another nice feature of this approach is that it gives us a lower bound on the model evidence [[P(X)]], because [[D_{KL}]] must be positive.
+which is easy to work out. Another nice feature of this approach is that it gives us a lower bound on the model evidence [[P(X)]], because [[D_{KL}]] must be positive.
 
 $[[E_{\hat Q}[ \log(P(X, \theta)) - \log(\hat Q(\theta))] \le \log(P(X))]]
 
 (Note the sign flip; we'll maximise this quantity to minimise [[D_{KL}]].)
 
-For this reason, the left hand side is often called the "evidence lower bound" or ELBO. This is a particularly useful feature of VI, since [[P(X)]] gives a measure of model fit that can be used for model comparison and hypothesis testing. So maximising the ELBO will both improve our model and give an idea of how good the fit is.
+For this reason, the left hand side is often called the "evidence lower bound" or ELBO. This is a particularly useful feature of VI, since [[P(X)]] gives a measure of model fit that can be used for model comparison and hypothesis testing. Maximising the ELBO will both improve our model and give an idea of how good the fit is.
 
 Calculating the ELBO still involves an integral, but because it's an expectation we can approximate it by taking samples from [[\hat Q]].
 
@@ -75,7 +75,7 @@ where `model(θ)` represents the user-defined log likelihood function (closing o
 
 [^batch]: [[N = 1]] usually needs the fewest samples to converge, too. However, it can still be useful to set [[N > 1]]. Extra samples in a batch are often cheap to compute.
 
-## At What Cost?
+## Grounds for Divorce
 
 It's worth breaking down this objective a bit, and interesting to compare it to neural networks and deep learning.
 
@@ -89,7 +89,7 @@ The second term is more surprising. We want [[\theta]] to be as *unlikely* as po
 
 Here's a more information-theoretical way to view the ELBO. [[E_{\hat Q}[ \log(P(X, \theta))]]] is the negentropy of our data with respect to the model, or in other words, the number of bits of information in the data not explained by the model. [[E_{\hat Q}[\log(\hat Q(\theta))]]] is the negentropy of [[\hat Q]], or in other words the amount of information stored by our model. Our cost function implies that the model will only add complexity if it is [more than offset](https://en.wikipedia.org/wiki/Occam%27s_razor) by better explanation of the data. So the model compresses information in the data and changes in the ELBO measure how many bits are saved; information that can be compressed is likely to be pattern rather than noise.
 
-## Pleasant pastures, mean fields
+## Little Fictions
 
 That's all well and good in theory, but we need to know how to set up [[\hat Q]]. The most common option is to assume each parameter in [[\theta]] is distributed as an independent Gaussian (normal distribution).
 
@@ -109,7 +109,7 @@ $[[\hat Q(\boldsymbol \theta) = p(\boldsymbol \theta \| \boldsymbol \theta \sim 
 
 where [[p(x \| x \sim D)]] gives the probility density of the distribution [[D]]. It's easy to sample from this distribution (just sample from each normal independently), it's easy to calculate the ELBO, and it's easy to update each [[\mu]] and [[\sigma]] with gradient descent.
 
-This works great in many cases, but we must remember the assumption it depends on: that all parameters are independent of each other in the posterior. It's useful to see what happens when we break this assumption. Consider what happens if we write this in Stan:
+This works great in many cases, but remember the assumption it depends on: that all parameters are independent of each other in the posterior. It's useful to see what happens when we break this assumption. Consider what happens if we write this in Stan:
 
 <div>
     $[[\begin{aligned}
@@ -129,7 +129,7 @@ The result is that when our parameters are correlated, we really underestimate t
 
 If our representation of the posterior distribution [[\hat Q]] is to restrictive, perhaps we can make it more expressive.
 
-## Mixing it up
+## The Fix
 
 One simple way to do so is to use the idea of a mixture model, in which a more complex distribution is made up of a combination of simpler ones. Consider the two peaks in the distribution of adult human heights, for example. The overall chance of any given height is the average of the (Gaussian) probability a man has that height, and that a woman does.
 
@@ -147,7 +147,7 @@ One way to look at the mean-field approximation is that we represent a distribut
 
 In principle the mixture model can approximate any other distribution, given enough components. Whether it works well in practice will still, of course, depend on the details of the problem.
 
-## Let's Get Particular
+## Bitten by the Tailfly
 
 Unfortunately, [some time series models]() will defeat most inference methods, including the one detailed above. Very high dimensionality and correlation between parameters seem to combine to make the posterior very sparse, so points that look close together (for example, two criss-crossing lines) register as being far apart. The result is again very tight marginals around the MAP estimate.
 
@@ -173,8 +173,8 @@ In this modeller's testing so far, this seems to work quite well. Here's what th
 
 [plot]
 
-Even on tricky high-dimensional examples, we either get the right marginals or overestimate them by a small factor – far better than underestimating them. When all else fails, variational inference is an extremely useful trick to have up your sleeve.
+Even on tricky high-dimensional examples, we seem to either get the right marginals or overestimate them by a small factor – far better than underestimating them. When all else fails, variational inference is an extremely useful trick to have up your sleeve.
 
-An implementation of the particle based method is available [here](), along with an implementation of the time series model it powered, which is written up [here]().
+An [implementation]() of the particle based method is available, along with an implementation of the [time series model it powered]().
 
 ## Notes
