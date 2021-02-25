@@ -32,7 +32,7 @@ There are a few ways to measure how different distributions are. One particularl
 
 where [[E_{\hat Q}[f(\theta)]]] means the expected value of [[f(\theta)]], given [[\theta \sim \hat Q]]. The divergence is always positive, and if [[D_{KL} = 0]] then [[\hat Q = Q]] (the two distributions are identical).
 
-At first this looks circular; we can find [[Q]] if we minimise a value that we need [[Q]] to calculate. But some magic happens if we replace [[Q]] with its definition per Bayes' rule.
+At first this looks circular; we can approxmiate [[Q]] if we minimise a value that we need [[Q]] to calculate. But some magic happens if we replace [[Q]] with its definition per Bayes' rule.
 
 <div>
     $[[\begin{aligned}
@@ -42,7 +42,7 @@ At first this looks circular; we can find [[Q]] if we minimise a value that we n
     \end{aligned}]]
 </div>
 
-The trick here is that we can separate out [[\log(P(X))]], the tricky part, and what's left is easy to calculate. Because [[P(X)]] is independent of [[\theta]], minimising [[D_{KL}]] is the same as minimising
+The trick here is that we can separate out [[\log(P(X))]], the tricky part. Because [[P(X)]] is independent of [[\theta]], minimising [[D_{KL}]] is the same as minimising
 
 <div>
     $[[\begin{aligned}
@@ -50,13 +50,13 @@ The trick here is that we can separate out [[\log(P(X))]], the tricky part, and 
     \end{aligned}]]
 </div>
 
-which is easy to work out. Another nice feature of this approach is that it gives us a lower bound on [[P(X)]] (also called the "model evidence"), because [[D_{KL}]] must be positive.
+which is easy to calculate. Another nice feature of this approach is that it gives us a lower bound on [[P(X)]] (also called the "model evidence"), because [[D_{KL}]] must be positive.
 
 $[[E_{\hat Q}[ \log(P(X, \theta)) - \log(\hat Q(\theta))] \le \log(P(X))]]
 
 (Note the sign flip; we'll maximise this quantity to minimise [[D_{KL}]].)
 
-For this reason, the left hand side is often called the "evidence lower bound" or ELBO. Getting the model evidence as part of fitting is a particularly useful feature of VI. [[P(X)]] can be used to find the probability that one model is better than another, as if choice of model were like any other parameter. Optimising the ELBO both finds the model parameters and helps us improve the model itself.
+For this reason, the left hand side is often called the "evidence lower bound" or ELBO. Getting the model evidence as part of fitting is a particularly useful feature of VI. [[P(X)]] can be used to find the probability that one model is better than another, making the choice of best model a parameter like any other. So optimising the ELBO both finds the model parameters and helps us improve the model itself.
 
 Calculating the ELBO still involves an integral, but because it's an expectation we can approximate it by taking samples from [[\hat Q]].
 
@@ -81,7 +81,7 @@ It's worth breaking down this objective a bit, and interesting to compare it to 
 
 $[[\log(P(X, \theta)) - \log(\hat Q(\theta))]]
 
-The first half – call it the data term – implies that we want to maximise how likely we think the data is, which seems reasonable enough. This part is often identical in neural networks. For example, the negative log likelihood of a Gaussian increases with [[\|\|y - \hat y\|\|^2]] (comparing our data [[y]] and model output [[\hat y]]), which you might recognise as the "mean squared error". Likewise "cross entropy", used for discrete data, is the log likelihood of the multinomial distribution. Deep learning is secretly likelihood maximisation on a statistical model – the probability distributions are just more implicit.
+The first half – call it the data term – implies that we want to maximise how likely we think the data is, which seems reasonable enough. This part is often identical in neural networks. For example, the log likelihood of a Gaussian is proportional to [[-\|\|y - \hat y\|\|^2]] (comparing data [[y]] and model output [[\hat y]]) – so maximising likelihood is the same as minimising mean squared error. Likewise the cross entropy loss, used for discrete data, corresponds to the likelihood of a multinomial distribution. Deep learning is secretly likelihood maximisation on a statistical model – the probability distributions are just more implicit.
 
 The second half – the model term – is more surprising. We want [[\theta]] to be as *unlikely* as possible, with respect to [[\hat Q]]. Unlike deep learning, which would find a single point estimate for [[\theta]], we get a distribution of plausible [[\theta]] values, and this term forces the distribution to be as spread out as possible. The two terms of this objective are like attractive and repulsive forces, pulling our estimates towards the posterior mode but also repelling them from each other.[^forces] Smearing out the distribution lets us estimate the posterior mean, which is less likely to be an [artifact of noise in the data](https://en.wikipedia.org/wiki/Maximum_a_posteriori_estimation#Limitations) than the mode – so it's effectively a kind of regularisation.
 
@@ -91,7 +91,7 @@ This supports common wisdom on overfitting. Having too many parameters is bad (i
 
 Here's a more information-theoretical way to view the ELBO. [[E_{\hat Q}[ \log(P(X, \theta))]]] is the negentropy of our data with respect to the model, or in other words, the number of bits of information in the data not explained by the model. [[E_{\hat Q}[\log(\hat Q(\theta))]]] is the negentropy of [[\hat Q]], or in other words the amount of information stored by our model. The model effectively compresses the data, and changes in the ELBO measure how many bits are saved; information that can be compressed is likely to be pattern rather than noise.
 
-In other words: added model complexity is only worthwhile when more than offset by better explanation of the data. Occam's razor is Bayes' rule in disguise.
+In other words: added model complexity is only worthwhile when more than offset by better explanation of the data. Occam's razor is Bayes' rule in disguise!
 
 ## Little Fictions
 
@@ -115,7 +115,7 @@ where [[p(x \| x \sim D)]] gives the probility density of the distribution [[D]]
 
 This works great in many cases, but remember the assumption it depends on: that all parameters are independent of each other in the posterior. It's useful to see what happens when we break this assumption. Consider what happens with this model:[^stan]
 
-[^stan]: I'm using a Stan-like interpretation of this code snippet: we define a distribution using the implied (unnormalised) log-pdf over [[(x, y)]]. If it's easier to think in terms of priors and observations, rewrite the last line to [[z \sim \mathcal N(x + y, ¼)]] where the "data" [[z = 0]].f
+[^stan]: I'm using a Stan-like interpretation of this code snippet: we define a distribution using the implied (unnormalised) log-pdf over [[(x, y)]]. If it's easier to think in terms of priors and observations, rewrite the last line to [[z \sim \mathcal N(x + y, ¼)]] where the "data" [[z = 0]].
 
 <div>
     $[[\begin{aligned}
@@ -125,15 +125,15 @@ This works great in many cases, but remember the assumption it depends on: that 
     \end{aligned}]]
 </div>
 
-The posteriors of [[x]] and [[y]] are tightly correlated. Here's what the posterior looks like, compared to what we calculate using VI.
+Here [[x]] and [[y]] are tightly correlated. Here's what the posterior looks like, compared to what we calculate using VI.
 
 <div style="text-align:center">
-<img src="{{site.url}}/assets/2021-02-vi/vi.png" style="width:80%" />
+<img src="{{site.url}}/assets/2021-02-vi/vi.png" class="img-narrow" />
 </div>
 
 Notice that because [[x]] and [[y]] are treated as independent, the posterior plot can only be a horizontal or vertical elipse (or a circle). We simply can't represent the slanted shape of the true posterior here. Instead we end up with a small disc, because being any bigger would include more unlikely values of [[x]] and [[y]] than likely ones.
 
-The result is that when our parameters are correlated, we really underestimate their marginal uncertainty. This is fatal for many statistical tasks. With lots of correlated parameters the method reduces to MAP estimation, both overfitting and falsely claiming very high confidence in its results.
+The result is that when our parameters are correlated, we really underestimate their marginal uncertainty. This is fatal for many statistical tasks. With lots of correlated parameters the method reduces to MAP estimation, both overfitting and falsely claiming very high confidence in its results. This method can still be useful, but we'll need to be careful how we apply it.
 
 If our representation of the posterior distribution [[\hat Q]] is too restrictive, perhaps we can loosen it up.
 
@@ -142,7 +142,7 @@ If our representation of the posterior distribution [[\hat Q]] is too restrictiv
 One simple way to do so is to use the idea of a mixture model, in which a more complex distribution is made up of a combination of simpler ones. Consider adult human heights: Men and women both have normally-distributed heights, but with different averages. The overall distribution is non-Gaussian but still simple to describe formally.
 
 <div style="text-align:center">
-<img src="{{site.url}}/assets/2021-02-vi/heights.png" style="width:80%" />
+<img src="{{site.url}}/assets/2021-02-vi/heights.png" class="img-narrow" />
 </div>
 
 $[[
@@ -153,21 +153,28 @@ In our case, [[\hat Q]] will be a mixture of [[N]] component distributions of th
 
 $[[\hat Q(\boldsymbol \theta) = \frac{1}{N}\sum_{i=1}^N p(\boldsymbol \theta \| \boldsymbol \theta \sim \mathcal N(\boldsymbol \mu^i, \boldsymbol \sigma^i I))]]
 
-I think this idea is much easier to understand graphically. Here's how our posterior for the [[x + y]] example above looks as [[N]] increases; we can see that [[N=1]] is equivalent to what we did earlier, and that it starts to look much more like the true posterior.
+I think this idea is much easier to understand graphically. Here's how our posterior for the [[x + y]] example above looks; we can see that [[N=1]] is equivalent to what we did earlier, and as [[N]] increases it starts to look much more like the true posterior.
 
 <img src="{{site.url}}/assets/2021-02-vi/mixture-vi.png" style="width:100%" />
 
-One way to look at our first approximation above is that we used a representative [[n]]-dimensional point, with some uncertainty over its exact location – the posterior is a fuzzy disc centred at [[\mu]]. The mixture approach generalises this by working with [[N]] representative points, a bit like a sample, each of which shows up as a fuzzy disc at [[\mu_i]]. Enough discs can look like a more interesting distribution, and this is reflected in the ELBO: [[N=100]] has about [[3\times]] better model evidence than [[N=1]].
+One way to look at our first approximation above is that we used a representative [[n]]-dimensional point, with some uncertainty over its exact location – a fuzzy disc centred at [[\mu]]. The mixture approach generalises this by working with [[N]] representative points, a bit like a sample, each of which shows up as a fuzzy disc at [[\mu_i]]. Enough discs can represent a more interesting distribution, and this is reflected in the ELBO: [[N=100]] has about [[3\times]] better model evidence than [[N=1]].
 
 ## Bitten by the Tailfly
 
-Unfortunately, very high dimensionality and sparsity in the posterior is still hard on most inference methods, including the one above. In these cases the result is, once again, very tight marginals around the MAP estimate.
+Unfortunately, extreme sparsity in the posterior still presents a challenge to most inference methods, including the one above. In these cases the result is, once again, very tight marginals around the MAP estimate, unless we use a very large number of components.
+
+<!-- ```python
+def model(x):
+    poirot.lls[-1] += np.sin(5*np.sin((x[0]+2)**2) + 5*(x[1]+2))*3 - (x[0]**2+x[1]**2)/2
+``` -->
+
+<img src="{{site.url}}/assets/2021-02-vi/failure.png" style="width:100%" />
 
 One last trick is to take the idea of a set of samples repelling each other more literally. To work backwards, imagine we already had a good set of samples via MCMC. MCMC doesn't give us a distribution or a PDF, but with the samples we can estimate that underlying function (using a kernel density estimator, for example). Doing this will take sandpaper to the fine peaks and troughs of the true posterior, but that's fine if we're mainly interested in the marginal uncertainty of individual parameters.
 
 So instead of starting with a guess for the posterior distribution [[\hat Q]], start with a guess for a set of samples from the posterior; find the distribution implied by those samples; use both to approximate the ELBO; then improve the ELBO by tweaking the samples. The net result should be a representative[^random] set of points that are good enough for getting marginals.
 
-[^random]: Representative, but not random. Compared to a random sample, the points will look too evenly spread out (similarly to [SVGD](https://arxiv.org/abs/1608.04471)). The upside is that fewer points are needed to cover the posterior space well.
+[^random]: Representative, but not random. Compared to a random sample, the points will look too evenly spread out (similar to [SVGD](https://arxiv.org/abs/1608.04471)). The upside is that fewer points are needed to cover the posterior space well.
 
 We'll need a way to calculate the probability density. The word "density" is not coincidental; it's the expected number of particles in a unit volume. Given two particles in [[n]]-dimensional space, at a Euclidean distance of [[d]] from each other, we can carve around each point a hypersphere[^shape] (with volume proportional to [[d^n]]) and the density is [[1/d^n]]. We can average the density over all pairs of points to get the density at a point [[\theta_i]]:
 
@@ -183,6 +190,6 @@ In this modeller's testing so far, this seems to work quite well. Here's what th
 
 <img src="{{site.url}}/assets/2021-02-vi/particle.png" style="width:100%" />
 
-We start getting reasonable marginals at low [[N]], and even on tricky high-dimensional examples (eg [this time series model]({{site.url}}/2020/12/17/covid-gp.html)), we seem to either get the right marginals or overestimate them by a small factor – far better than underestimating them. When all else fails, variational inference is an really useful trick to have up your sleeve.
+We start getting reasonable marginals at low [[N]], and even on tricky high-dimensional examples (eg [this time series model]({{site.url}}/2020/12/17/covid-gp.html)), we seem to either get the right marginals or overestimate them by a small factor – far better than underestimating them. The objective is also deterministic, which greatly improves fitting times. When all else fails, variational inference is a very useful trick to have up your sleeve.
 
 ## Notes
