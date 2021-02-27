@@ -5,12 +5,12 @@ title: home
 
 # Mike J Innes
 
-## Some things you should know about me
+## Some things you should know
 
 * My name is Mike
 * I know very little about anything (but I'm working on it)
 * As a programmer, I spend most of my time writing pieces of text which solve problems
-  * Although the problems are often themselves caused by other pieces of text, which were often also written by me
+  * Although the problems are often caused by other pieces of text, which were often also written by me
 
 ## Some things I've worked on
 
@@ -22,7 +22,7 @@ title: home
 
 ## Some things you can click on
 
-[GitHub](https://github.com/MikeInnes), [Twitter](https://twitter.com/MikeJInnes), [Here]({{site.url}})
+[GitHub](https://github.com/MikeInnes), [Twitter](https://twitter.com/MikeJInnes), [Publications](https://scholar.google.co.uk/citations?user=zffDj88AAAAJ&hl=en), [Blog]({{site.url}})
 
 ## Some things you can read
 
