@@ -14,7 +14,9 @@ body {
   font-weight: lighter;
   line-height: 1.8;
   max-width: 700px;
-  height: 100%;
+  min-height: 100%;
+  padding-top: 5px;
+  padding-bottom: 50%;
 }
 @media only screen and (min-width: 700px) {
   body {
@@ -24,8 +26,10 @@ body {
 .bordered {
   background-color: white;
   padding-top: 25px;
-  padding-bottom: 50%;
+  padding-bottom: 25px;
+  /* padding-bottom: 50%; */
   min-height: 100%;
+  border-radius: 5px;
 }
 .padded {
   padding-left: var(--padding);
@@ -120,12 +124,14 @@ blockquote em {
   font-size: 90%;
 }
 
-.footer > div {
+.footer {
   font-size: 90%;
-  float: left;
-  width: 33%;
   margin-top: 20px;
   color: #535353;
+  width: 100%;
+}
+.footer td {
+  width: 33%;
 }
 .footer .home {
   text-align: center;
