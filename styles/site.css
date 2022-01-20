@@ -73,6 +73,14 @@ a {
 a:hover {
   border-color: rgb(230, 230, 230);
 }
+a.footnote, a.reversefootnote {
+  border: none;
+  font-weight: inherit;
+}
+a.footnote:hover, a.reversefootnote:hover {
+  position: relative;
+  top: -1px;
+}
 
 .desc {
   font-size: 90%;
