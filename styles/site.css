@@ -167,3 +167,6 @@ code.highlighter-rouge {
   position: relative;
   bottom: 1px;
 }
+::selection {
+  background: #ffff00; /* WebKit/Blink Browsers */
+}
