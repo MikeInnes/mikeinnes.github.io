@@ -23,6 +23,9 @@ body {
     background: var(--background);
   }
 }
+.content > p:last-of-type::after {
+  content: " ●";
+}
 .bordered {
   background-color: white;
   padding-top: 25px;
